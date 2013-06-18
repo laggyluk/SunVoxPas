@@ -57,9 +57,6 @@
       <OtherUnitFiles Value="/home/luksz/SunVoxPas"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetOS Value="linux"/>
-    </CodeGeneration>
     <Other>
       <CompilerMessages>
         <MsgFileName Value=""/>

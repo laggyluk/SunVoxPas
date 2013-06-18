@@ -10,8 +10,8 @@
         <UnitName Value="SunVoxTest"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="25"/>
-        <CursorPos X="1" Y="54"/>
+        <TopLine Value="7"/>
+        <CursorPos X="33" Y="14"/>
         <UsageCount Value="20"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -39,7 +39,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="SunVoxTest.lpr"/>
         <Caret Line="16" Column="41" TopLine="7"/>
@@ -96,6 +96,30 @@
         <Filename Value="SunVoxTest.lpr"/>
         <Caret Line="42" Column="36" TopLine="25"/>
       </Position14>
+      <Position15>
+        <Filename Value="SunVoxTest.lpr"/>
+        <Caret Line="54" Column="1" TopLine="25"/>
+      </Position15>
+      <Position16>
+        <Filename Value="SunVoxTest.lpr"/>
+        <Caret Line="9" Column="20" TopLine="13"/>
+      </Position16>
+      <Position17>
+        <Filename Value="SunVoxTest.lpr"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position17>
+      <Position18>
+        <Filename Value="SunVoxTest.lpr"/>
+        <Caret Line="9" Column="22" TopLine="22"/>
+      </Position18>
+      <Position19>
+        <Filename Value="SunVoxTest.lpr"/>
+        <Caret Line="10" Column="16" TopLine="1"/>
+      </Position19>
+      <Position20>
+        <Filename Value="SunVoxTest.lpr"/>
+        <Caret Line="15" Column="11" TopLine="6"/>
+      </Position20>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

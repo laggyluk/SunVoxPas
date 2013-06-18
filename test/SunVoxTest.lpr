@@ -6,8 +6,13 @@ uses
   {$IFDEF UNIX}{$IFDEF UseCThreads}
   cthreads,
   {$ENDIF}{$ENDIF}
-  Classes, sysutils, sunvox
-  { you can add units after this };
+  Classes, sysutils,
+  {$ifdef Linux}
+
+  {$endif}
+  {$ifdef Windows}
+    sunvox in '.\..\sunvox.pas';
+  {$endif}
 
 var
   ver,major,minor1,minor2:integer;
