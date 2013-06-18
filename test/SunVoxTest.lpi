@@ -54,7 +54,7 @@
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
       <Libraries Value="bin"/>
-      <OtherUnitFiles Value="/home/luksz/SunVoxPas"/>
+      <OtherUnitFiles Value="/home/luksz/SunVoxPas/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <Other>

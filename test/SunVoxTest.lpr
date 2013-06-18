@@ -8,7 +8,7 @@ uses
   {$ENDIF}{$ENDIF}
   Classes, sysutils,
   {$ifdef Linux}
-
+    sunvox in './../sunvox.pas';
   {$endif}
   {$ifdef Windows}
     sunvox in '.\..\sunvox.pas';
