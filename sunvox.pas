@@ -1,6 +1,6 @@
 unit sunvox;
 //sunvox.h 1.7.3b translation by laggyluk.
-//tested only on windows and most likely broken on linux and osx :P
+//tested on windows and linux
 
 {$mode objfpc}{$H+}
 
@@ -12,7 +12,7 @@ uses
   {$IFDEF Windows}
   windows,
   {$endif}
-  Classes, SysUtils, dialogs;
+  Classes, SysUtils, dynlibs;
 
 const
 {$IFDEF Windows}
@@ -68,11 +68,6 @@ type
     ctl_val:ShortInt;        //XXYY. Value of controller
   end;
   pSunvox_note = ^sunvox_note;
-
-
-{$IFDEF Darwin or LINUX}
-    {$DEFINE  UNIX }
-{$ENDIF}
 
 {$ifdef SUNVOX_STATIC_LIB}
 //sv_audio_callback() - get the next piece of SunVox audio.
@@ -263,55 +258,23 @@ function sv_unload_dll:integer;
 implementation
 var
  fn_not_found: pchar = nil;
-{$ifdef Darwin or Linux }
- g_sv_dll: pointer = 0;
-{$endif}
-{$ifdef Windows}
- g_sv_dll: HMODULE = 0;
-{$endif}
+ g_sv_dll: TLibHandle;
 
-{$ifdef Windows}
-   function IMPORT( Functio:pchar):pointer;
-   begin
-   	result := GetProcAddress( g_sv_dll, Functio );
-   	if result = nil then fn_not_found := Functio;
-   end;
- {$endif}
-
- {$ifdef Darwin or Linux }
- {
- procedure IMPORT( Handle, Typ, Functio, Store :integer);
- begin
-   	Store := typ(dlsym( g_sv_dll, Functio ));
-   	if( Store = 0 ) then begin
-         fn_not_found = Functio;
-     end;
- end;}
  function IMPORT( Functio:pchar):pointer;
  begin
-   	result := dlsym( g_sv_dll, Functio );
+   	result := GetProcedureAddress( g_sv_dll, Functio );
    	if result = nil then fn_not_found := Functio;
  end;
- {$endif}
 
 function sv_load_dll:integer;
 begin
-{$ifdef Windows}
-    g_sv_dll := LoadLibrary( LIBNAME );
-    if( g_sv_dll = 0 ) then
+  g_sv_dll := LoadLibrary( LIBNAME);
+  if( g_sv_dll = 0 )then
     begin
-        showmessage( 'sunvox.dll not found' );
-        result:= 1;
-    end;
-{$endif}
-{$ifdef Darwin or Linux}
-    g_sv_dll := dlopen( LIBNAME, RTLD_NOW );
-    if( g_sv_dll = 0 )then
-    begin
-      	showmessage( 'some unix sunvox lib loading error ');
-        result:= 1;
-    end;
-{$endif}
+    //showmessage( 'some sunvox lib loading error ');
+    result:= 1;
+    exit;
+  end;
    //while true do
   begin
   sv_audio_callback:=tsv_audio_callback(import('sv_audio_callback' ));
@@ -325,7 +288,7 @@ begin
   sv_load:=tsv_load(import('sv_load' ));
   sv_load_from_memory:=tsv_load_from_memory(import('sv_load_from_memory' ));
   sv_play:=tsv_play(import( 'sv_play' ));
-	sv_play_from_beginning:=tsv_play_from_beginning(import('sv_play_from_beginning' ));
+  sv_play_from_beginning:=tsv_play_from_beginning(import('sv_play_from_beginning' ));
   sv_stop:=tsv_stop(import( 'sv_stop' ));
   sv_set_autostop:=tsv_set_autostop(import( 'sv_set_autostop' ));
   sv_end_of_song:=tsv_end_of_song(import( 'sv_end_of_song' ));
@@ -361,7 +324,7 @@ begin
   end;
   if( fn_not_found<>nil ) then
     begin
-	    showmessage('sunvox lib: not found');
+	//    showmessage('sunvox lib: not found');
     	result:= -1;
     end;
     result:= 0;
@@ -369,13 +332,7 @@ end;
 
 function sv_unload_dll:integer;
 begin
-{$ifdef Darwin or Linux}
-    if( g_sv_dll ) then dlclose( g_sv_dll );
-{$endif}
-{$ifdef Windows}
-    //freeLibrary(g_sv_dll);?
-{$endif}
-    result:=0;
+  result:= integer(UnloadLibrary( g_sv_dll ));
 end;
 
 begin
